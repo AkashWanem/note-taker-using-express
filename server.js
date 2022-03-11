@@ -16,7 +16,10 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-
+// should return the notes.html file
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
 
 
 // this listens to the port after deployment
