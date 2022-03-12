@@ -26,9 +26,13 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
+// should read the db.json file and return all saved notes as JSON
+app.get('/api/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '/db/db.json'));
+});
+
 
 // this listens to the port after deployment
 app.listen(PORT, () => {
     console.log(`Note Taker app listening at http://localhost:${PORT}`);
   });
-  
