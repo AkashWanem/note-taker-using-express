@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 // sets port to listen
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // sets up the app
 const app = express();
@@ -29,6 +29,25 @@ app.get('*', (req, res) => {
 // should read the db.json file and return all saved notes as JSON
 app.get('/api/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/db/db.json'));
+});
+
+//should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. 
+app.post('/api/notes', (req,res) => {
+    let newNote = req.body;
+    let data = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+    let uniqueId = (data.length).toString();
+    console.log(uniqueId);
+
+    // creates id property based on length and assigns id to each json object
+    newNote.id = uniqueId;
+    data.push(newNote);
+
+    // writes updated data into db.json
+    fs.writeFileSync("./db/db.json", JSON.stringify(data), function(err) {
+        if (err) throw (err);        
+    }); 
+
+    res.json(data);    
 });
 
 
