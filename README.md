@@ -33,8 +33,14 @@
   * Heroku
 
   ## Screenshots
+  
+![Note taker app](https://user-images.githubusercontent.com/88898180/158065912-a2245812-2dbe-42ff-8c72-87509cd508a6.png)
+
+![Note taker app 2](https://user-images.githubusercontent.com/88898180/158065918-feb9f080-59b9-4a25-bdb7-982750093c84.png)
+
 
   ## Deployed link
+  https://note-taker-applied-express-js.herokuapp.com/
 
   ## Installation
 
