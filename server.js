@@ -50,6 +50,21 @@ app.post('/api/notes', (req,res) => {
     res.json(data);    
 });
 
+// should receive a query parameter that contains the id of a note to delete. 
+app.delete('/api/notes/:id', (req,res) => {
+    let data = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+    let noteId = (req.params.id).toString();
+
+    // filters all the non matching arrays and deletes all the matching arrays  
+    data = data.filter(selected => {
+        return selected.id != noteId;
+    })
+
+    // writes the updated data into db.json and displays the updated note
+    fs.writeFileSync("./db/db.json", JSON.stringify(data));
+    res.json(data);
+});
+
 
 // this listens to the port after deployment
 app.listen(PORT, () => {
