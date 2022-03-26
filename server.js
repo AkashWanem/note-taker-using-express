@@ -21,19 +21,15 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
-//  should return the index.html file
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
-});
-
 // should read the db.json file and return all saved notes as JSON
 app.get('/api/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/db/db.json'));
 });
 
 //should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. 
-app.post('/api/notes', (req,res) => {
+app.post('/api/notes', (req, res) => {
     let newNote = req.body;
+    console.log(fs.readFileSync('./db/db.json', 'utf-8'));
     let data = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
     let uniqueId = (data.length).toString();
     console.log(uniqueId);
@@ -65,6 +61,10 @@ app.delete('/api/notes/:id', (req,res) => {
     res.json(data);
 });
 
+//  should return the index.html file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+});
 
 // this listens to the port after deployment
 app.listen(PORT, () => {
